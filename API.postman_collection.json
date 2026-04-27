@@ -1,0 +1,360 @@
+{
+  "info": {
+    "name": "Clinic Appointment API",
+    "description": "Clinic Appointment & Notification API — Spring Boot 3 + MongoDB\n\nAll requests require the header: X-API-KEY: {{apiKey}}\n\nVariables:\n  baseUrl  = http://localhost:8080\n  apiKey   = clinic-secret-key\n  patientId        — fill after Create Patient\n  practitionerId   — fill after Create Practitioner\n  appointmentId    — fill after Create Appointment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl",        "value": "http://localhost:8080", "type": "string" },
+    { "key": "apiKey",         "value": "clinic-secret-key",     "type": "string" },
+    { "key": "patientId",      "value": "",                      "type": "string" },
+    { "key": "practitionerId", "value": "",                      "type": "string" },
+    { "key": "appointmentId",  "value": "",                      "type": "string" }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key",   "value": "X-API-KEY",  "type": "string" },
+      { "key": "value", "value": "{{apiKey}}", "type": "string" },
+      { "key": "in",    "value": "header",     "type": "string" }
+    ]
+  },
+  "item": [
+    {
+      "name": "Patients",
+      "description": "Patient management — create, retrieve, and paginated search.",
+      "item": [
+        {
+          "name": "Create Patient",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/patients" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Sachi Dilshan\",\n  \"nationalId\": \"199801234567\",\n  \"dateOfBirth\": \"1998-01-23\",\n  \"email\": \"sachi@example.com\",\n  \"phone\": \"+94771234567\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Patient by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/patients/{{patientId}}" }
+          }
+        },
+        {
+          "name": "List All Patients (page + size only)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/patients?page=0&size=10",
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Patient by National ID (paginated)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/patients?nationalId=199801234567&page=0&size=10",
+              "query": [
+                { "key": "nationalId", "value": "199801234567" },
+                { "key": "page",       "value": "0" },
+                { "key": "size",       "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Patient by Name (paginated)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/patients?name=Sachi&page=0&size=10",
+              "query": [
+                { "key": "name", "value": "Sachi" },
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Practitioners",
+      "description": "Practitioner management — create, retrieve, and paginated listing with optional specialty filter.",
+      "item": [
+        {
+          "name": "Create Practitioner",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/practitioners" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Dr. Kamal Silva\",\n  \"registrationNo\": \"SLMC-2024-001\",\n  \"specialty\": \"Cardiology\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Practitioner by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/practitioners/{{practitionerId}}" }
+          }
+        },
+        {
+          "name": "List All Practitioners (page + size only)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/practitioners?page=0&size=10",
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Practitioners by Specialty (paginated)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/practitioners?specialty=Cardiology&page=0&size=10",
+              "query": [
+                { "key": "specialty", "value": "Cardiology" },
+                { "key": "page",      "value": "0" },
+                { "key": "size",      "value": "10" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appointments",
+      "description": "Appointment management — book, retrieve, list with optional filters, cancel, complete, and update notes.\n\nStatus transitions:\n  BOOKED → CANCELLED  (PATCH /{id}/cancel)\n  BOOKED → COMPLETED  (PATCH /{id}/complete)\n  Notes editable while BOOKED only.",
+      "item": [
+        {
+          "name": "Create Appointment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/appointments" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": \"{{patientId}}\",\n  \"practitionerId\": \"{{practitionerId}}\",\n  \"startTime\": \"2026-06-01T09:00:00Z\",\n  \"endTime\": \"2026-06-01T09:30:00Z\",\n  \"notes\": \"Initial consultation\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Appointment — Conflict (expects 409)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/appointments" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": \"{{patientId}}\",\n  \"practitionerId\": \"{{practitionerId}}\",\n  \"startTime\": \"2026-06-01T09:15:00Z\",\n  \"endTime\": \"2026-06-01T09:45:00Z\",\n  \"notes\": \"Overlapping slot — should return 409\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Appointment by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/appointments/{{appointmentId}}" }
+          }
+        },
+        {
+          "name": "List All Appointments (page + size only)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/appointments?page=0&size=10",
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Appointments by Practitioner",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/appointments?practitionerId={{practitionerId}}&page=0&size=10",
+              "query": [
+                { "key": "practitionerId", "value": "{{practitionerId}}" },
+                { "key": "page",           "value": "0" },
+                { "key": "size",           "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Appointments by Practitioner + Date",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/appointments?practitionerId={{practitionerId}}&date=2026-06-01&page=0&size=10",
+              "query": [
+                { "key": "practitionerId", "value": "{{practitionerId}}" },
+                { "key": "date",           "value": "2026-06-01" },
+                { "key": "page",           "value": "0" },
+                { "key": "size",           "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Appointments by Practitioner + Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/appointments?practitionerId={{practitionerId}}&status=BOOKED&page=0&size=10",
+              "query": [
+                { "key": "practitionerId", "value": "{{practitionerId}}" },
+                { "key": "status",         "value": "BOOKED" },
+                { "key": "page",           "value": "0" },
+                { "key": "size",           "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Appointments by Date Only",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/appointments?date=2026-06-01&page=0&size=10",
+              "query": [
+                { "key": "date", "value": "2026-06-01" },
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Appointments by Status Only",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/appointments?status=BOOKED&page=0&size=10",
+              "query": [
+                { "key": "status", "value": "BOOKED" },
+                { "key": "page",   "value": "0" },
+                { "key": "size",   "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cancel Appointment (BOOKED → CANCELLED)",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "{{baseUrl}}/api/appointments/{{appointmentId}}/cancel" }
+          }
+        },
+        {
+          "name": "Complete Appointment (BOOKED → COMPLETED)",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "{{baseUrl}}/api/appointments/{{appointmentId}}/complete" }
+          }
+        },
+        {
+          "name": "Update Appointment Notes",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/appointments/{{appointmentId}}" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Patient requires follow-up in 2 weeks\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Notes on COMPLETED Appointment (expects 422)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/appointments/{{appointmentId}}" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"This should fail — completed appointments are locked\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Error Cases",
+      "description": "Requests designed to trigger specific error responses.",
+      "item": [
+        {
+          "name": "Missing API Key (expects 401)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": { "type": "noauth" },
+            "url": { "raw": "{{baseUrl}}/api/patients?page=0&size=10" }
+          }
+        },
+        {
+          "name": "Patient Not Found (expects 404)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/patients/000000000000000000000000" }
+          }
+        },
+        {
+          "name": "Create Patient — Validation Error (expects 400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/patients" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"A\",\n  \"nationalId\": \"\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Patient — Duplicate National ID (expects 409)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/patients" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Sachi Dilshan\",\n  \"nationalId\": \"199801234567\",\n  \"dateOfBirth\": \"1998-01-23\",\n  \"email\": \"sachi@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Appointment — endTime before startTime (expects 400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/appointments" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": \"{{patientId}}\",\n  \"practitionerId\": \"{{practitionerId}}\",\n  \"startTime\": \"2026-06-01T10:00:00Z\",\n  \"endTime\": \"2026-06-01T09:00:00Z\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

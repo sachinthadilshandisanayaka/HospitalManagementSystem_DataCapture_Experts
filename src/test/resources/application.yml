@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: clinic-appointment-api-test
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/clinicdb_test
+
+app:
+  security:
+    api-key: clinic-secret-key
+
+logging:
+  level:
+    co.clinic: DEBUG
