@@ -1,7 +1,7 @@
 package co.clinic.appointment.loader;
 
 import co.clinic.appointment.entity.Appointment;
-import co.clinic.appointment.entity.AppointmentStatus;
+import co.clinic.appointment.util.AppointmentStatus;
 import co.clinic.appointment.entity.Patient;
 import co.clinic.appointment.entity.Practitioner;
 import co.clinic.appointment.repository.AppointmentRepository;

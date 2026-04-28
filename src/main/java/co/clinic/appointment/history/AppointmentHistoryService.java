@@ -1,6 +1,7 @@
 package co.clinic.appointment.history;
 
 import co.clinic.appointment.entity.Appointment;
+import co.clinic.appointment.util.AppointmentHistoryAction;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;

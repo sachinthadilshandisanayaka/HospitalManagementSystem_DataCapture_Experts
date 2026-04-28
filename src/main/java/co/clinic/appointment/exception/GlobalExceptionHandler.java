@@ -1,7 +1,7 @@
 package co.clinic.appointment.exception;
 
 import co.clinic.appointment.response.ErrorDetail;
-import co.clinic.appointment.response.ResponseCode;
+import co.clinic.appointment.util.ResponseCode;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

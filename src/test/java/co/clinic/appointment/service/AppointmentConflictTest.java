@@ -4,7 +4,7 @@ import co.clinic.appointment.audit.AuditService;
 import co.clinic.appointment.dto.request.AppointmentRequest;
 import co.clinic.appointment.dto.response.AppointmentResponse;
 import co.clinic.appointment.entity.Appointment;
-import co.clinic.appointment.entity.AppointmentStatus;
+import co.clinic.appointment.util.AppointmentStatus;
 import co.clinic.appointment.entity.Patient;
 import co.clinic.appointment.entity.Practitioner;
 import co.clinic.appointment.exception.AppointmentConflictException;

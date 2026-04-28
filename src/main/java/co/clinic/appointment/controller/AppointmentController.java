@@ -2,7 +2,7 @@ package co.clinic.appointment.controller;
 
 import co.clinic.appointment.dto.request.AppointmentRequest;
 import co.clinic.appointment.dto.request.UpdateNotesRequest;
-import co.clinic.appointment.entity.AppointmentStatus;
+import co.clinic.appointment.util.AppointmentStatus;
 import co.clinic.appointment.response.SuccessResponse;
 import co.clinic.appointment.response.SuccessResponseHandler;
 import co.clinic.appointment.service.AppointmentService;

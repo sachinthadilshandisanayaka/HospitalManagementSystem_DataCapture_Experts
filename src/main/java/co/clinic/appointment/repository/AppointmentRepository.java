@@ -1,7 +1,7 @@
 package co.clinic.appointment.repository;
 
 import co.clinic.appointment.entity.Appointment;
-import co.clinic.appointment.entity.AppointmentStatus;
+import co.clinic.appointment.util.AppointmentStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;

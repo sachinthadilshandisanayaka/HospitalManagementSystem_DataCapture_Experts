@@ -1,4 +1,4 @@
-package co.clinic.appointment.notification;
+package co.clinic.appointment.util;
 
 public enum NotificationEventType {
     APPOINTMENT_BOOKED,

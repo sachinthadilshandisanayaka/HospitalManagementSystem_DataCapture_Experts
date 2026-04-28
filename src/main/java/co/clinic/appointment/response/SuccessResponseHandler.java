@@ -1,5 +1,6 @@
 package co.clinic.appointment.response;
 
+import co.clinic.appointment.util.ResponseCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

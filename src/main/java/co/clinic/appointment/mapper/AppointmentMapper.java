@@ -3,7 +3,7 @@ package co.clinic.appointment.mapper;
 import co.clinic.appointment.dto.request.AppointmentRequest;
 import co.clinic.appointment.dto.response.AppointmentResponse;
 import co.clinic.appointment.entity.Appointment;
-import co.clinic.appointment.entity.AppointmentStatus;
+import co.clinic.appointment.util.AppointmentStatus;
 import org.springframework.stereotype.Component;
 
 @Component

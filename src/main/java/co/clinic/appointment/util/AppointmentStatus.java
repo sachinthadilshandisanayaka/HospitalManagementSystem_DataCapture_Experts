@@ -1,4 +1,4 @@
-package co.clinic.appointment.entity;
+package co.clinic.appointment.util;
 
 public enum AppointmentStatus {
     BOOKED,

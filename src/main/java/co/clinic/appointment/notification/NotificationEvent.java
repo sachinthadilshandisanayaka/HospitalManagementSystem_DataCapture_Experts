@@ -1,5 +1,7 @@
 package co.clinic.appointment.notification;
 
+import co.clinic.appointment.util.NotificationEventType;
+
 public class NotificationEvent {
 
     private final String appointmentId;

@@ -1,6 +1,7 @@
 package co.clinic.appointment.history;
 
-import co.clinic.appointment.entity.AppointmentStatus;
+import co.clinic.appointment.util.AppointmentHistoryAction;
+import co.clinic.appointment.util.AppointmentStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;

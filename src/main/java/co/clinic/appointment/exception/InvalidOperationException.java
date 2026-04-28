@@ -1,6 +1,6 @@
 package co.clinic.appointment.exception;
 
-import co.clinic.appointment.response.ResponseCode;
+import co.clinic.appointment.util.ResponseCode;
 import org.springframework.http.HttpStatus;
 
 public class InvalidOperationException extends BaseException {

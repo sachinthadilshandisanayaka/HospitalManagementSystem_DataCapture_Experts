@@ -1,5 +1,6 @@
 package co.clinic.appointment.entity;
 
+import co.clinic.appointment.util.AppointmentStatus;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;

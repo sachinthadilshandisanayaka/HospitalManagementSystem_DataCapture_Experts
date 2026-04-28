@@ -3,7 +3,7 @@ package co.clinic.appointment.integration;
 import co.clinic.appointment.audit.AuditService;
 import co.clinic.appointment.dto.request.AppointmentRequest;
 import co.clinic.appointment.dto.response.AppointmentResponse;
-import co.clinic.appointment.entity.AppointmentStatus;
+import co.clinic.appointment.util.AppointmentStatus;
 import co.clinic.appointment.exception.AppointmentConflictException;
 import co.clinic.appointment.exception.DataNotFoundException;
 import co.clinic.appointment.history.AppointmentHistoryService;

@@ -1,6 +1,6 @@
 package co.clinic.appointment.dto.response;
 
-import co.clinic.appointment.entity.AppointmentStatus;
+import co.clinic.appointment.util.AppointmentStatus;
 
 import java.time.Instant;
 

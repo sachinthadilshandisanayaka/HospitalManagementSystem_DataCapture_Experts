@@ -1,4 +1,4 @@
-package co.clinic.appointment.history;
+package co.clinic.appointment.util;
 
 public enum AppointmentHistoryAction {
     CREATED,
