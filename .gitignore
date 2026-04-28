@@ -29,3 +29,8 @@ logs/
 # Temp
 *.tmp
 *.swp
+
+# Assessment documents (internal — not for public repo)
+docs/requirement_guide_line.txt
+docs/requirement.promt.v1.txt
+"docs/Java Assesment DCELKST03.pdf"
